@@ -15,9 +15,20 @@ const connect = function() {
   });
   // interpret incoming data as text
   conn.setEncoding('utf8'); 
+  
+  let stdin = process.stdin; 
+  let name = "AKP"; 
+  stdin.on('data', (input) => {
+    conn.write(`${name}: ${input}`);
+})
 
   conn.on('data', (data) => { //when client gets data, write to screen 
-    console.log(data); 
+    console.log(data);
+  });
+  //on method needs 2 parameters: name of event, and the event handler for event ie. fn  
+  //event handler for connect event; connect is param;    
+  conn.on('connect', () => { //no input param for fn
+  conn.write("Successfully connected to game server");
   });
 
   return conn;
@@ -25,3 +36,5 @@ const connect = function() {
 
 console.log('Connecting ...');
 connect();
+
+module.exports = connect;
