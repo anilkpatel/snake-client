@@ -8,4 +8,4 @@ const { connect } = require('./client');
 console.log('Connecting ...');
 connect();
 
-module.exports = connect;
+//module.exports = connect; not needed
