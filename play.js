@@ -3,41 +3,19 @@
 //Multiplayer Snake Game
 //Anil Patel, pair programmed with Arlet Vasquez
 
-/*Refactored orginal code
+//Refactored orginal code
+
 const { connect } = require('./client');
+const { setupInput } = require('./input');
+
 console.log('Connecting ...');
 connect();
-*/
 
-/**
- * Setup User Interface 
- * Specifically, so that we can handle user input via stdin
- */
-const setupInput = function() {
-  const stdin = process.stdin;
-  stdin.setRawMode(true);
-  stdin.setEncoding('utf8');
-  stdin.resume();
+setupInput();
 
-//FUNCTION stdin 
-// Event Handler
-// Register the Event with setupInput function above, BEFORE returning stdin object
-// 'Event Listener' such that when data called, event exist
-// Register/Capture the data and call the handle  
 
-stdin.on("data" , handleUserInput) 
 
-return stdin;
-}; 
 
-//FUNCTION handleUserInput 
-//Registered as "data" callback handler for Function stdin. 
-
-const handleUserInput = function (data) {
-if ('\u0003' === data) { // 
-  process.exit();
-  }
-};
 
 
 
