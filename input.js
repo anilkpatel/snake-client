@@ -9,21 +9,18 @@ const net = require('net');
  * Setup User Interface 
  * Handle user input via stdin function
  */
-const setupInput = function() {
+
+let conn;
+
+const setupInput = function(connection) {
+  conn = connection; 
   const stdin = process.stdin;
   stdin.setRawMode(true);
   stdin.setEncoding('utf8');
   stdin.resume();
 
-//FUNCTION stdin 
-// Event Handler
-// Register the Event with setupInput function above, BEFORE returning stdin object
-// 'Event Listener' such that when data called, event exist
-// Register/Capture the data and call the handle  
-
-stdin.on("data" , handleUserInput) 
-
-return stdin;
+  stdin.on("data" , handleUserInput) 
+  return stdin;
 }; 
 
 //FUNCTION handleUserInput 
@@ -32,11 +29,27 @@ return stdin;
 const handleUserInput = function (data) {
   if ('\u0003' === data) { // 
     process.exit();
-    }
+    } else if('w' === data) {
+      conn.write('Move: up');
+    } else if('s' === data) {
+      conn.write('Move: down');
+    } else if('d' === data) {
+      conn.write('Move: right');
+    } else if('a' === data) {
+      conn.write('Move: left');
+    } else if('b' === data) {
+      conn.write('Say: boo');
+     } else if('m' === data) {
+        conn.write('Say: mice');
+     }
 };
+
+//FUNCTION stdin 
+// Event Handler
+// Register the Event with setupInput function above, BEFORE returning stdin object
+// 'Event Listener' such that when data called, event exist
+// Register/Capture the data and call the handle  
 
 // Export object using the key setupInput
 
-const object = { setupInput : setupInput }
-
-module.exports = object;
+module.exports = {setupInput}; 
