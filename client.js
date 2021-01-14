@@ -31,6 +31,7 @@ const connect = function() {
   conn.write("Successfully connected to game server");
   });
 
+  //return "Move UP"
   return conn;
 }
 
